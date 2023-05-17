@@ -64,10 +64,10 @@ local function update_preview(code_buf)
 
   if state.preview_buf ~= nil then
     vim.api.nvim_buf_set_lines(state.preview_buf, 0, -1, 0, lines)
-    vim.api.nvim_win_set_cursor(
+    pcall(vim.api.nvim_win_set_cursor(
       state.preview_win,
       { node.line + 1, node.character }
-    )
+    ))
   end
 end
 
@@ -129,11 +129,11 @@ local function update_hover()
       markdown_lines = { '###No info available!' }
     end
 
-    markdown_lines = vim.lsp.util.stylize_markdown(
+    _, markdown_lines = pcall(vim.lsp.util.stylize_markdown(
       state.hover_buf,
       markdown_lines,
       {}
-    )
+    ))
 
     if state.hover_buf ~= nil then
       vim.api.nvim_buf_set_lines(state.hover_buf, 0, -1, 0, markdown_lines)

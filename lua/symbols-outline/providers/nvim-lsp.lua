@@ -32,8 +32,9 @@ function M.hover_info(bufnr, params, on_info)
       },
     })
   end
-
-  used_client.request('textDocument/hover', params, on_info, bufnr)
+  if used_client ~= nil then
+      used_client.request('textDocument/hover', params, on_info, bufnr)
+  end
 end
 
 -- probably change this
@@ -81,3 +82,4 @@ function M.request_symbols(on_symbols)
 end
 
 return M
+
